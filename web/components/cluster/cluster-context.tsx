@@ -1,7 +1,7 @@
 'use client';
 
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { clusterApiUrl, Connection } from '@solana/web3.js';
+import { Connection } from '@solana/web3.js';
 import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { createContext, ReactNode, useContext } from 'react';
@@ -38,15 +38,14 @@ export function toWalletAdapterNetwork(
 export const defaultClusters: Cluster[] = [
   {
     name: 'devnet',
-    endpoint: clusterApiUrl('devnet'),
+    endpoint: process.env.NEXT_PUBLIC_DEVNET_RPC!,
     network: ClusterNetwork.Devnet,
   },
-  { name: 'local', endpoint: 'http://localhost:8899' },
   {
-    name: 'testnet',
-    endpoint: clusterApiUrl('testnet'),
-    network: ClusterNetwork.Testnet,
+    name: 'mainnet',
+    endpoint: process.env.NEXT_PUBLIC_MAINNET_RPC!,
   },
+  { name: 'local', endpoint: 'http://localhost:8899' },
 ];
 
 const clusterAtom = atomWithStorage<Cluster>(
@@ -108,7 +107,7 @@ export function ClusterProvider({ children }: { children: ReactNode }) {
     },
     setCluster: (cluster: Cluster) => setCluster(cluster),
     getExplorerUrl: (path: string) =>
-      `https://explorer.solana.com/${path}${getClusterUrlParam(cluster)}`,
+      `https://solscan.io/${path}${getClusterUrlParam(cluster)}`,
   };
   return <Context.Provider value={value}>{children}</Context.Provider>;
 }

@@ -4,19 +4,13 @@ import dynamic from 'next/dynamic';
 
 import { WalletError } from '@solana/wallet-adapter-base';
 import {
-  AnchorWallet,
   ConnectionProvider,
-  useConnection,
-  useWallet,
   WalletProvider,
 } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { SolflareWalletAdapter } from '@solana/wallet-adapter-solflare';
 import { ReactNode, useCallback, useMemo } from 'react';
-import {
-  toWalletAdapterNetwork,
-  useCluster,
-} from '../cluster/cluster-data-access';
+import { toWalletAdapterNetwork, useCluster } from '../cluster/cluster-context';
 
 require('@solana/wallet-adapter-react-ui/styles.css');
 
